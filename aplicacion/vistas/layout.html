@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--<link rel="stylesheet" href="/static/materialize/css/materialize.min.css">    -->
+    <link rel="stylesheet" href="/static/index.css">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+        
+    <div class="columns">
+        <!-- Barra lateral -->
+        <header class="column is-one-quarter">
+            <aside class="menu">
+                <p class="menu-label">
+                    General
+                </p>
+                <ul class="menu-list">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Clientes</a></li>
+                    <li><a href="#">Productos</a></li>
+                </ul>
+                <p class="menu-label">
+                    Administración
+                </p>
+                <ul class="menu-list">
+                    <li><a href="#">Usuarios</a></li>
+                    <li><a href="#">Configuración</a></li>
+                </ul>
+            </aside>
+        </header>
+
+        <!-- Contenido principal -->
+        <main class="column">
+            <section class="section">                
+                <!-- Aquí se incluirá el contenido específico de cada página -->
+                {% block content %}{% endblock %}
+            </section>
+        </main>
+    </div>
+    <footer>
+        <!-- Aquí puedes incluir tu pie de página común -->
+        <p>Derechos de autor © 2024 </p>
+    </footer>
+    <!-- <script src="/static/materialize/js/materialize.min.js"></script>-->
+</body>
+</html>

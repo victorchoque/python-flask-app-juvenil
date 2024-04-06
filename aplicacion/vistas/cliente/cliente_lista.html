@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}Acerca de nosotros{% endblock %}
+
+{% block content %}
+    <h1>Lista de clientes</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"> Id Cliente</th>
+                <th scope="col"> Nit Ci</th>
+                <th scope="col"> Razon Social </th>
+                <th scope="col"> Estado </th>
+                <th scope="col"> </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, segment in segment_details.items() %}
+                <tr>
+                <td>{{ key }}</td>
+                <td>{{ segment }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
