@@ -1,26 +1,38 @@
 {% extends 'layout.html' %}
 
-{% block title %}Acerca de nosotros{% endblock %}
+{% block title %}lista de Clientes{% endblock %}
 
 {% block content %}
     <h1>Lista de clientes</h1>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col"> Id Cliente</th>
-                <th scope="col"> Nit Ci</th>
-                <th scope="col"> Razon Social </th>
-                <th scope="col"> Estado </th>
-                <th scope="col"> </th>
+                <th > Id Cliente</th>
+                <th > Nit Ci</th>
+                <th > Razon Social </th>
+                <th > Estado </th>
+                <th > </th>
             </tr>
         </thead>
         <tbody>
-            {% for key, segment in segment_details.items() %}
+            {% for cliente in clientes_lista %}
                 <tr>
-                <td>{{ key }}</td>
-                <td>{{ segment }}</td>
+                <td>{{ cliente.id_cliente }}</td>
+                <td>{{ cliente.razon_social }}</td>
+                <td>{{ cliente.nit_ci }}</td>
+                <td>
+                    <a href="{{ url_for('cliente.borrar_cliente', id=cliente.id_cliente) }}" onclick="return confirm('Esta seguro de eliminar?')" class="button is-danger">Eliminar</a>
+                    <a href="{{ url_for('cliente.editar_cliente', id=cliente.id_cliente) }}" class="button is-warning">Actualizar</a>
+                </td>
                 </tr>
             {% endfor %}
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <a href="{{ url_for('cliente.agregar_cliente') }}" class="button is-primary">Agregar nuevo cliente</a>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 {% endblock %}

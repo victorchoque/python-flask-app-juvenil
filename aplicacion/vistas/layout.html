@@ -6,34 +6,38 @@
     <!--<link rel="stylesheet" href="/static/materialize/css/materialize.min.css">    -->
     <link rel="stylesheet" href="/static/index.css">
     <title>{% block title %}{% endblock %}</title>
+    <!-- Inyecta el script JavaScript en la sección <head> -->
+    {{ script | safe }}
 </head>
 <body>
         
     <div class="columns">
         <!-- Barra lateral -->
-        <header class="column is-one-quarter">
+        <header class="column">
             <aside class="menu">
                 <p class="menu-label">
                     General
                 </p>
                 <ul class="menu-list">
-                    <li><a href="#">Dashboard</a></li>
-                    <li><a href="#">Clientes</a></li>
-                    <li><a href="#">Productos</a></li>
+                    <li><a href={{ url_for('cargo.listar_cargos') }}>Lista de Cargos</a></li>
+                    <li><a href={{ url_for('empleado.listar_empleados') }}>Lista de Empleados</a></li>
+                    <li><a href={{ url_for('cliente.listar_clientes') }}>Lista de Clientes</a></li>
+                    <li><a href={{ url_for('cliente.listar_clientes_desactivados') }} class="has-text-danger">Lista de Clientes Desactivados</a></li>
+                    
                 </ul>
                 <p class="menu-label">
-                    Administración
+                    Otras paginas de prueba
                 </p>
                 <ul class="menu-list">
-                    <li><a href="#">Usuarios</a></li>
-                    <li><a href="#">Configuración</a></li>
+                    <li><a href={{ url_for('presentacion.pagina_de_comentarios') }}>Comentarios de los desarrolladores!</a></li>                                        
                 </ul>
+                
             </aside>
         </header>
 
         <!-- Contenido principal -->
-        <main class="column">
-            <section class="section">                
+        <main class="column is-four-fifths">
+            <section class="section" style="overflow:auto">                
                 <!-- Aquí se incluirá el contenido específico de cada página -->
                 {% block content %}{% endblock %}
             </section>

@@ -9,3 +9,9 @@ def pagina_index():
         return render_template("presentacion/index.html")
     except TemplateNotFound:
         abort(404)
+@enrutador.route('/comentarios-del-equipo-de-desarrollo-xD')
+def pagina_de_comentarios():
+    try:
+        return render_template("presentacion/comentarios.html")
+    except TemplateNotFound:
+        abort(404)

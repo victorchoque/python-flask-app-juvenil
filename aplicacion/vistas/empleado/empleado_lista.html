@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block title %}lista de Clientes{% endblock %}
+
+{% block content %}
+    <h1>Lista de clientes</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th> Id Empleado</th>
+                <th> ci</th>                
+                <th> nombre </th>
+                <th> paterno </th>
+                <th> materno </th>
+                <th> direccion </th>
+                <th> telefono </th>
+                <th> fecha_nacimiento </th>
+                <th> genero </th>
+                <th> intereses </th>
+                <th> id_cargo </th>                
+                <th>  </th>  
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados_lista %}
+                <tr>
+                <td>{{ empleado.id_empleado }}</td>
+                <td>{{ empleado.ci }}</td>                
+                <td>{{ empleado.nombre }}</td>
+                <td>{{ empleado.paterno }}</td>
+                <td>{{ empleado.materno }}</td>
+                <td>{{ empleado.direccion }}</td>
+                <td>{{ empleado.telefono }}</td>
+                <td>{{ empleado.fecha_nacimiento }}</td>
+                <td>{{ empleado.genero }}</td>
+                <td>{{ empleado.intereses }}</td>
+                <td>{{ empleado.id_cargo }}</td>  
+                <td>
+                    <a href="{{ url_for('empleado.borrar_empleado', id=empleado.id_empleado) }}" onclick="return confirm('Esta seguro de eliminar?')" class="button is-danger">Eliminar</a>
+                    <a href="{{ url_for('empleado.editar_empleado', id=empleado.id_empleado) }}" class="button is-warning">Actualizar</a>
+                </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <a href="{{ url_for('empleado.agregar_empleado') }}" class="button is-primary">Agregar nuevo empleado</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}

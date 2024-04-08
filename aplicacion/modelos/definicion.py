@@ -1,32 +1,95 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, Date, CHAR, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.sql import  update
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
 db = SQLAlchemy()
+class BaseCrud:
+    __abstract__ = True
+    def guardar(self):
+        try:
+            db.session.add(self)
+            db.session.commit()
+            print("Registro guardado exitosamente")
+            return True
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            return False
+    def editar(self):
+        db.session.commit()
+        return True
+    
+    def editar_no_funciona_como_debe(self, campos_de_diccionario_a_actualizar: dict):
+        try:            
+            for nombre_columna in self.__table__.columns.keys():
+                if nombre_columna in campos_de_diccionario_a_actualizar:
+                    setattr(self, nombre_columna, campos_de_diccionario_a_actualizar[nombre_columna])
+            db.session.add(self)
+            #db.session.commit()
+            logging.debug("Antes de hacer commit")
+            db.session.commit()
+            logging.debug("Después de hacer commit")
+            return True
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            return False
 
-class Cargo(db.Model):
-    __tablename__ = 'cargo'
-    id_cargo = Column(Integer, primary_key=True, autoincrement=True)
-    cargo = Column(String(255), nullable=False)
+    #def editar(self, **kwargs):
+    #    try:        
+    #        for attr, value in kwargs.items():
+    #            setattr(self, attr, value)
+    #        db.session.merge(self)
+    #        db.session.commit()
+    #        return True
+    #    except Exception as e:
+    #        print(e)
+    #        db.session.rollback()
+    #        return False
 
-class Empleado(db.Model):
-    __tablename__ = 'empleado'
-    id_empleado = Column(Integer, primary_key=True, autoincrement=True)
-    ci = Column(String(255), nullable=False)
-    nombre = Column(String(255), nullable=False)
-    paterno = Column(String(255), nullable=False)
-    materno = Column(String(255), nullable=False)
-    direccion = Column(String(255), nullable=False)
-    telefono = Column(Integer, nullable=False)
-    fecha_nacimiento = Column(Date, nullable=False)
-    genero = Column(CHAR(2), nullable=False)
-    intereses = Column(String(120), nullable=False)
-    id_cargo = Column(Integer, ForeignKey('cargo.id_cargo'), nullable=False)
-    cargo = relationship("Cargo", backref="empleados")
+    def borrar(self):
+        try:
+            db.session.delete(self)
+            db.session.commit()
+            return True
+        except Exception as e:
+            print(e)
+            db.session.rollback()
+            return False
+    @classmethod
+    def obtener_lista(cls):
+        try:
+            return cls.query.all()
+        except Exception as e:
+            print(e)
+            return []
 
-class Cliente(db.Model):
-    __tablename__ = 'cliente'
-    id_cliente = Column(Integer, primary_key=True, autoincrement=True)
-    razon_social = Column(String(255), nullable=False)
-    nit_ci = Column(String(255), nullable=False)
-    estado = Column(String(255), nullable=False)
+    @classmethod
+    def obtener(cls,  id_value):
+        try:            
+            return cls.query.get(id_value)
+        except Exception as e:
+            print(e)
+            return None
+    @classmethod
+    def obtener_lista_clave_valor(cls, clave, valor):
+        try:
+            # Obtener todos los registros
+            registros = cls.query.all()
+
+            # Construir el diccionario asociativo usando los campos clave y valor especificados
+            resultados = {}
+            for registro in registros:
+                clave_registro = getattr(registro, clave)
+                valor_registro = getattr(registro, valor)
+                resultados[clave_registro] = valor_registro
+                
+            return resultados
+        except Exception as e:
+            print(e)
+            return {}
+    
+
+

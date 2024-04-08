@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %}lista de Clientes{% endblock %}
+
+{% block content %}
+    <h1>Lista de Cargos</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"> Id Cargo</th>
+                <th scope="col"> Cargo</th>                
+                <th scope="col"> </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cargo in cargos_lista %}
+                <tr>
+                <td>{{ cargo.id_cargo }}</td>
+                <td>{{ cargo.cargo }}</td>
+                <td>
+                    <a href="{{ url_for('cargo.borrar_cargo', id=cargo.id_cargo) }}" onclick="return confirm('Esta seguro de eliminar?')" class="button is-danger">Eliminar</a>
+                    <a href="{{ url_for('cargo.editar_cargo', id=cargo.id_cargo) }}" class="button is-warning">Actualizar</a>
+                </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <a href="{{ url_for('cargo.agregar_cargo') }}" class="button is-primary">Agregar nuevo Cargo</a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+{% endblock %}

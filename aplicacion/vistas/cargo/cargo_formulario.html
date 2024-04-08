@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ sub_titulo }}{% endblock %}
+
+{% block content %}
+    <h1>{{ sub_titulo }}</h1>
+    <form id="agregar-cargo-form" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="field">
+            {{ form["cargo"].label(class="label" ) }}
+            <div class="control">
+                {{ form.cargo(class='input') }}
+            </div>
+          </div> 
+        <button type="submit" class="button is-success">Guardar</button>
+    </form>
+{% endblock %}

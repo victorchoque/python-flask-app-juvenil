@@ -1,0 +1,177 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ sub_titulo }}{% endblock %}
+
+{% block content %}
+    <h1>{{ sub_titulo }}</h1>
+    <form id="agregar-empleado-form" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="field">
+            {{ form.id_cargo.label }}
+            <div class="control">
+                <div class="select">
+                    {{ form.id_cargo }}
+                </div>
+            </div>
+            {% if form.id_cargo.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.id_cargo.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        <div class="field">
+            {{ form.ci.label }}
+            <div class="control">
+                {{ form.ci(class='input') }}
+            </div>
+            {% if form.ci.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.ci.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div> 
+        <div class="field">
+            {{ form.nombre.label }}
+            <div class="control">
+                {{ form.nombre(class='input') }}
+            </div>
+            {% if form.nombre.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.nombre.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div> 
+        <div class="field">
+            {{ form.paterno.label }}
+            <div class="control">
+                {{ form.paterno(class='input') }}
+            </div>
+            {% if form.paterno.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.paterno.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div> 
+        <div class="field">
+            {{ form.materno.label }}
+            <div class="control">
+                {{ form.materno(class='input') }}
+            </div>
+            {% if form.materno.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.materno.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div> 
+        <div class="field">
+            {{ form.direccion.label }}
+            <div class="control">
+                {{ form.direccion(class='input') }}
+            </div>
+            {% if form.direccion.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.direccion.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div> 
+        <div class="field">
+            {{ form.telefono.label }}
+            <div class="control">
+                {{ form.telefono(class='input') }}
+            </div>
+            {% if form.telefono.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.telefono.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div> 
+        <div class="field">
+            {{ form.fecha_nacimiento.label }}
+            <div class="control">
+                {{ form.fecha_nacimiento(class='input') }}
+            </div>
+            {% if form.fecha_nacimiento.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.fecha_nacimiento.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div> 
+        <div class="field">
+            {{ form.genero.label }}
+            <div class="control">
+                {{ form.genero(class='input') }}
+            </div>
+            {% if form.genero.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.genero.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div> 
+        <div class="field">
+            {{ form.intereses.label }}
+            <div class="control">
+                {{ form.intereses(class='input') }}
+            </div>
+            {% if form.intereses.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.intereses.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}            
+        </div>         
+        <button type="submit" class="button is-success">Guardar</button>
+    </form>
+    {% if empleado %}
+    <script>
+        //Debido a un problema para la edicion, y no se marcan las casillas se recurre a un parche  en javascript para lograr el mismo efecto
+        var intereses_seleccionados='{{ empleado.intereses }}';
+        if(intereses_seleccionados){
+            document.querySelectorAll("input[name='intereses']")
+            .forEach((input)=>{ 
+                if(intereses_seleccionados.indexOf( input.value) >-1){
+                    input.checked=true
+                }
+             })
+        } 
+    </script>
+    {% endif %}
+{% endblock %}

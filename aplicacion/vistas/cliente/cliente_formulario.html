@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ sub_titulo }}{% endblock %}
+
+{% block content %}
+    <h1>{{ sub_titulo }}</h1>
+    <form id="agregar-cargo-form" method="POST">
+        {{ form.hidden_tag() }}        
+        <div class="field">
+            {{ form.razon_social.label }}
+            <div class="control">
+                
+                    {{ form.razon_social(class='input') }}
+                
+            </div>
+            {% if form.razon_social.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.razon_social.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+        <div class="field">
+            {{ form.nit_ci.label }}
+            <div class="control">
+                
+                    {{ form.nit_ci(class='input') }}
+                
+            </div>
+            {% if form.nit_ci.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.nit_ci.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>      
+        <div class="field">
+            {{ form.estado.label }}
+            <div class="control">
+                <div class="select">
+                    {{ form.estado }}
+                </div>
+            </div>
+            {% if form.estado.errors %}
+                <div class="validation-error-message hidden has-text-danger">
+                    <ul class="errors">
+                    {% for error in form.estado.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>  
+        <button type="submit" class="button is-success">Guardar</button>
+    </form>
+{% endblock %}
