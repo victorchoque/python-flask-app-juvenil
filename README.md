@@ -66,13 +66,14 @@ flask --app servidor.py db upgrade
 ```
 
 ## 2.2 tutoriales que se siguieron
-https://j2logo.com/python/tutorial/
-https://j2logo.com/python/tutorial/tipo-tuple-python/
-https://pythonbasics.org/flask-boilerplate/
-https://github.com/salimane/flask-mvc
-https://www.digitalocean.com/community/tutorials/how-to-use-flask-sqlalchemy-to-interact-with-databases-in-a-flask-application
-https://flask-wtf.readthedocs.io/en/1.2.x/
-https://bulma.io/documentation/form/general/
+- https://j2logo.com/python/tutorial/
+- https://j2logo.com/python/tutorial/tipo-tuple-python/
+- https://pythonbasics.org/flask-boilerplate/
+- https://github.com/salimane/flask-mvc
+- https://www.digitalocean.com/community/tutorials/how-to-use-flask-sqlalchemy-to-interact-with-databases-in-a-flask-application
+- https://flask-wtf.readthedocs.io/en/1.2.x/
+- https://bulma.io/documentation/form/general/
+
 # 3 Estructura del proyecto
 para lo siguiente se la estructura MVC, tratando de seguir las recomendaciones 
 ## 3.1 Carpetas y archivos
