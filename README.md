@@ -35,6 +35,10 @@ Implementamos la metodología KANBAN para el desarrollo de este proyecto, el cua
 # 2 Instalar python con Flask , Flask-SQLAlchemy , Flask-Migrate y Flask-WTF
 - Debes de tener instalado Python 3 (por DEFAULT instala el comando "PIP")
 - ejecutar comando "pip install Flask Flask-SQLAlchemy Flask-Migrate Flask-WTF "
+```bash
+cd c:\proyectos\RutaDeEstaCarpeta\
+pip install Flask Flask-SQLAlchemy Flask-Migrate Flask-WTF
+```
 ## [2.1](#2-1) Base de datos y ¿Migraciones? 
 En este apartado, se abstraen las tablas necesarias y se normalizan los nombres de los campos para facilitar su uso en una base de datos MySQL, PostgreSQL o SQLite. Una vez hecho esto, se procede a migrar dicha abstracción al gestor de base de datos elegido.
 ### 2.1.1 Normalizacion de la estructura  de la base de datos y las abstracciones
