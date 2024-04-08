@@ -106,3 +106,6 @@ esta carpeta contiene todos los controladores y se cada controlador debe cumplir
 ```python
 from aplicacion.modelos.cargo_modelo import Cargo
 ```
+
+### 3.1.9 */aplicacion/configuracion*
+Se penso hacer uso de MYSQL por lo cual se penso en tener los datos de conexion dentro de esta carpeta, pero al final no se uso

@@ -18,3 +18,11 @@ article>p{
 article>p:last-child{
     border-bottom: 2px dotted darkblue;
 }
+
+img.logo{
+    background-color: rgb(32, 32, 32);
+    border-radius: 1em 0em 1em 0em;
+    max-width: 180px ;
+    
+}
+
