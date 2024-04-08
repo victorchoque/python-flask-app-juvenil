@@ -8,6 +8,8 @@ escribir el comando
 ```bash
 python servidor.py
 ```
+recuerda instalar  [sus dependecias ](#2-instalar-python-con-flask--flask-sqlalchemy--flask-migrate--flask-wtf-y-reportlab) si es la primera vez con
+
 ## 1.2 Componentes/Librerias python a usar
 - **Flask**: Flask es un framework de desarrollo web en Python que facilita la creación de aplicaciones web de forma rápida y sencilla. Es conocido por ser ligero y flexible, permitiendo a los desarrolladores construir aplicaciones web desde simples páginas estáticas hasta aplicaciones complejas con API RESTful.
 
@@ -18,6 +20,8 @@ python servidor.py
 - **Flask.Migrate**: Flask-Migrate es una extensión de Flask que proporciona herramientas para gestionar y realizar migraciones de base de datos de manera sencilla y segura. Las migraciones de base de datos son cambios en la estructura de la base de datos que deben aplicarse de manera coherente a lo largo del tiempo, y Flask-Migrate simplifica este proceso al automatizar la generación y aplicación de scripts de migración.
 
 - **Flask-WTF**:Flask-WTF es una extensión de Flask que proporciona integración con la biblioteca WTForms, que facilita la creación y validación de formularios en aplicaciones web Flask. Flask-WTF simplifica la creación de formularios HTML y el manejo de datos de formulario en las vistas de Flask, ayudando a los desarrolladores a construir formularios seguros y fáciles de usar con facilidad.
+
+- **reportlab**: Para crear PDF y crear reportes en PDF
 
 ## 1.3 Metodologia KANBAN para desarrollo este proyecto
 ### 1.3.1 Descripcion
@@ -32,12 +36,12 @@ Implementamos la metodología KANBAN para el desarrollo de este proyecto, el cua
 - **GitHub**: Utilizamos GitHub, que nos brinda la posibilidad de utilizar Kanban para organizar y gestionar nuestras tareas de manera efectiva.
 - **VSCode:alexcvzz.vscode-sqlite** : plugin para Vscode, para realizar consultas y ver la informacion que esta almacenada en la base de datos de SQLITE para hacer verificaciones constantes de si: edita,borra,lista o filtra las Querys
 
-# 2 Instalar python con Flask , Flask-SQLAlchemy , Flask-Migrate y Flask-WTF
+# 2 Instalar python con Flask , Flask-SQLAlchemy , Flask-Migrate , Flask-WTF y reportlab
 - Debes de tener instalado Python 3 (por DEFAULT instala el comando "PIP")
-- ejecutar comando "pip install Flask Flask-SQLAlchemy Flask-Migrate Flask-WTF "
+- ejecutar comando "pip install Flask Flask-SQLAlchemy Flask-Migrate Flask-WTF reportlab"
 ```bash
 cd c:\proyectos\RutaDeEstaCarpeta\
-pip install Flask Flask-SQLAlchemy Flask-Migrate Flask-WTF
+pip install Flask Flask-SQLAlchemy Flask-Migrate Flask-WTF reportlab
 ```
 ## [2.1](#2-1) Base de datos y ¿Migraciones? 
 En este apartado, se abstraen las tablas necesarias y se normalizan los nombres de los campos para facilitar su uso en una base de datos MySQL, PostgreSQL o SQLite. Una vez hecho esto, se procede a migrar dicha abstracción al gestor de base de datos elegido.
@@ -73,6 +77,7 @@ flask --app servidor.py db upgrade
 - https://www.digitalocean.com/community/tutorials/how-to-use-flask-sqlalchemy-to-interact-with-databases-in-a-flask-application
 - https://flask-wtf.readthedocs.io/en/1.2.x/
 - https://bulma.io/documentation/form/general/
+- https://docs.reportlab.com/reportlab/userguide/ch1_intro/
 
 # 3 Estructura del proyecto
 para lo siguiente se la estructura MVC, tratando de seguir las recomendaciones 

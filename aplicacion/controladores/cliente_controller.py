@@ -1,8 +1,14 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for,make_response,send_file
 from aplicacion.formularios import ClienteForm  # Importa el formulario de Flask-WTF
 from aplicacion.modelos.cliente_modelo import Cliente  # Importa la clase clientepara llenar el desplegable
 from aplicacion.controladores.comun import javascript_alert
 
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle,Paragraph,Spacer
+
+import tempfile
 # Define el Blueprint
 enrutador = Blueprint('cliente', __name__,url_prefix='/cliente',template_folder='../vistas')
 
@@ -89,4 +95,44 @@ def listar_clientes_desactivados():
 
     return render_template('/cliente/cliente_lista.html', clientes_lista=clientes)
 
+@enrutador.route('/pdf_lista', methods=['GET', 'POST'])
+def pdf_listar_clientes():
+    clientes = Cliente.obtener_lista_activados()
+    #print(clientes)
+    # Creamos un objeto PDF usando reportlab
+    temp_file = tempfile.NamedTemporaryFile(delete=False)
     
+    # Creamos un objeto PDF usando reportlab
+    doc = SimpleDocTemplate(temp_file.name, pagesize=letter)
+    elements = []
+    # Agregamos un título al documento
+    title_style = ParagraphStyle(name='TitleStyle', fontSize=20, alignment=1)
+    title = Paragraph("Lista de Clientes", title_style)
+    elements.append(title)
+
+    # Agregamos un espacio vertical entre el título y la tabla
+    elements.append(Spacer(1, 20))  # Ajusta el valor 20 según sea necesario
+
+    # Creamos las cabeceras de la tabla
+    data = [['id', 'razon social', 'nit / ci', 'estado'] ]
+    # Llenamos de dato la tabla
+    for cliente in clientes:
+        data.append([cliente.id_cliente, cliente.razon_social, cliente.nit_ci,cliente.estado ])
+
+    table = Table(data)
+    table.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), colors.grey),
+                               ('TEXTCOLOR', (0,0), (-1,0), colors.whitesmoke),
+                               ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+                               ('FONTNAME', (0,0), (-1,0), 'Helvetica-Bold'),
+                               ('BOTTOMPADDING', (0,0), (-1,0), 12),
+                               ('BACKGROUND', (0,1), (-1,-1), colors.beige),
+                               ('GRID', (0,0), (-1,-1), 1, colors.black)]))
+
+    # Añadimos la tabla al objeto PDF
+    elements.append(table)
+
+    # Construimos el PDF
+    doc.build(elements)
+    
+    # Enviamos el archivo PDF como respuesta
+    return send_file(temp_file.name, as_attachment=False, download_name='mi_pdf.pdf')
