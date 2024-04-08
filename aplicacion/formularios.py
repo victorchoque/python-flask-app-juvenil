@@ -86,7 +86,7 @@ class ClienteForm(FlaskForm):
     nit_ci = StringField('Nit o Carnet de Identidad', validators=[DataRequired()])
     #estado = StringField('Estado', validators=[DataRequired()])
     #estado = EstadoField('Estado') # usamos un campo personalizado
-    estado = SelectField('Cargo', validators=[DataRequired()], choices=[("activado","Activado"),("desactivado","DesActivado")] )
+    estado = SelectField('Estado', validators=[DataRequired()], choices=[("activado","Activado"),("desactivado","DesActivado")] )
 
 class EmpleadoForm(FlaskForm):
     id_cargo = SelectField('Cargo', coerce=int, validators=[DataRequired()])
