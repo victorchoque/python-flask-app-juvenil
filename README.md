@@ -1,4 +1,4 @@
-~~Para esta documnentacion se recomienda tener un minimo de conocimiento con respecto a los archivos MD o Markdown para la jerarquia sea clara~~~(Mejorado con GPT)
+~~Para esta documnentacion se recomienda tener un minimo de conocimiento con respecto a los archivos MD o Markdown para la jerarquia sea clara~~(Mejorado con GPT)
 
 Para esta documentación, se recomienda tener un mínimo de conocimiento sobre archivos MD o Markdown para garantizar que la jerarquía sea clara y se pueda aprovechar al máximo la estructura y formato proporcionados por este tipo de documentos.
 # 1 python-flask-app-juvenil
