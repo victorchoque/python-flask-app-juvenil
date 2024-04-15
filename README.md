@@ -10,7 +10,7 @@ python servidor.py
 ```
 recuerda instalar  [sus dependecias ](#2-instalar-python-con-flask--flask-sqlalchemy--flask-migrate--flask-wtf-y-reportlab) si es la primera vez con
 
-## 1.2 Componentes/Librerias python a usar
+## 1.3 Componentes/Librerias python usadas
 - **Flask**: Flask es un framework de desarrollo web en Python que facilita la creación de aplicaciones web de forma rápida y sencilla. Es conocido por ser ligero y flexible, permitiendo a los desarrolladores construir aplicaciones web desde simples páginas estáticas hasta aplicaciones complejas con API RESTful.
 
 - **Flask.Blueprint**: Flask.Blueprint es una característica de Flask que permite organizar y estructurar una aplicación web en módulos reutilizables y escalables. Los blueprints son útiles para dividir una aplicación en componentes más pequeños y manejables, lo que facilita el mantenimiento y la colaboración en proyectos grandes.
@@ -37,7 +37,10 @@ Implementamos la metodología KANBAN para el desarrollo de este proyecto, el cua
 - **VSCode:alexcvzz.vscode-sqlite** : plugin para Vscode, para realizar consultas y ver la informacion que esta almacenada en la base de datos de SQLITE para hacer verificaciones constantes de si: edita,borra,lista o filtra las Querys
 
 # 2 Instalar python con Flask , Flask-SQLAlchemy , Flask-Migrate , Flask-WTF y reportlab
+- WINDOWS, link de descarga de Python https://www.python.org/downloads/release/python-3123/
 - Debes de tener instalado Python 3 (por DEFAULT instala el comando "PIP")
+- descargar este repositorio como ZIP
+- Ir a la carpeta
 - ejecutar comando "pip install Flask Flask-SQLAlchemy Flask-Migrate Flask-WTF reportlab"
 ```bash
 cd c:\proyectos\RutaDeEstaCarpeta\
@@ -80,10 +83,12 @@ flask --app servidor.py db upgrade
 - https://docs.reportlab.com/reportlab/userguide/ch1_intro/
 
 # 3 Estructura del proyecto
-para lo siguiente se la estructura MVC, tratando de seguir las recomendaciones 
+En este apartado se describe la estructura del proyecto siguiendo el patrón MVC (Modelo-Vista-Controlador), con el objetivo de adherirse a las mejores **prácticas** y recomendaciones de diseño. 
 ## 3.1 Carpetas y archivos
+En esta sección se detalla la estructura de carpetas y archivos del proyecto.
 ### 3.1.1 */servidor.py*
-Este es el punto de entrada del proyecto donde se inicia por el puerto y donde se agrega los archivos controladores ,se define la ruta de la base de datos y tambien es el archivos usado para las [*migraciones*](#2-1)
+Este archivo actúa como el punto de entrada del proyecto. Es donde se inicia el servidor en un puerto específico y se añaden los controladores de archivos. Además, aquí se define la ruta de la base de datos. Este archivo también se utiliza para [*migraciones*](#2-1)
+
 ### 3.1.2 */static*
 Esta carpeta contiene todos los elementos estaticos usados para la plantilla generalmente, como los CSS en este caso se uso el CSS de BULMACSS para los estilos del proyecto
 ### 3.1.2 */instance*
@@ -93,29 +98,31 @@ Esta carpeta se genero automaticamente al hacer la migracion y en el cual creo e
 Esta carpeta contiene subcarpetas para los controladores modelos vistas y archivos auxiliares
 
 ### 3.1.5 */aplicacion/formularios.py*
-es un archivo que contiene las definiciones de todos los formularios que usara la vista tambien sirve para agregar las validaciones se debe de estructurar segun *Flask-WTF*
-*Se recomienda agregar el formulario para el CRUD correspondiente, manteniendo el nombre del Modelo Seguido de la palabra form como "CargoForm"*
-
+Este archivo contiene las definiciones de todos los formularios que serán utilizados por la vista. Además, se encarga de agregar las validaciones necesarias. La estructura de este archivo debe seguir las convenciones de *Flask-WTF*.
+*Se recomienda agregar un formulario para cada operación CRUD correspondiente, manteniendo el nombre del modelo seguido de la palabra "Form". Por ejemplo, "CargoForm" para el modelo "Cargo".*
 ### 3.1.6 */aplicacion/modelos*
-esta carpeta contiene todas las abastracciones de la base de datos donde cada archivo debe estar [**normalizado**](#211-normalizacion-de-la-estructura-de-la-base-de-datos-y-las-abstracciones)
-
+Esta carpeta alberga todas las abstracciones de la base de datos. Cada archivo dentro de esta carpeta debe seguir los principios de **normalización** de la estructura de la base de datos y las abstracciones, como se describe en la sección [**normalización**](#211-normalizacion-de-la-estructura-de-la-base-de-datos-y-las-abstracciones).
 ### 3.1.7 */aplicacion/vistas*
-esta carpeta contiene todas las vistas fragmentos , para este proyecto se usa una estrcutura base llamada *layout* el cual servira como esqueleto base para todas las paginas
-Se normaliza las siguientes reglas
-- Los CRUD deben ir en carpetas y dentro de las carpetas deben estar los archivos HTML el estilo de plantilla de flask [Flask Template](https://flask.palletsprojects.com/en/3.0.x/tutorial/templates/)
-- las carpetas deben estar con el nombre claro en minusculas
-- los archivos deben ir separados por el underscore(_)  
-- no debe  contener mucha logica IF,ELSE tratar de evitarlo lo mayor posible para tener un codigo limpio
+Esta carpeta contiene todas las vistas y fragmentos del proyecto. Se utiliza una estructura base llamada *layout*, la cual actúa como el esqueleto base para todas las páginas del proyecto.
+
+Se siguen las siguientes reglas de normalización:
+
+- Los CRUD deben estar en carpetas separadas, dentro de las cuales se encuentran los archivos HTML con el estilo de plantilla de Flask [Flask Template](https://flask.palletsprojects.com/en/3.0.x/tutorial/templates/).
+- Los nombres de las carpetas deben estar en minúsculas y ser claros.
+- Los nombres de los archivos deben estar separados por guiones bajos (_).
+- Se debe evitar en la medida de lo posible la lógica condicional (IF, ELSE) en los archivos HTML para mantener un código limpio.
 ### 3.1.8 */aplicacion/controladores*
-esta carpeta contiene todos los controladores y se cada controlador debe cumplir lo siguiente
-- Nombre del controlador en singular seguido del underscore(_) y de la palabra "controller" ejemplo: **cargo_controller**
-- Tomar como ejemplo el archivo **ejemplo_controller.py**
-- El controlador debe tener la variable "enrutador" para mantener una coherencia con toda la estructura del proyecto
-- Dentro de cada controlador se hace uso de (*Blueprint*)[https://flask.palletsprojects.com/es/main/blueprints/] para mantener esa modularizacion y tratar de dividir los casos de uso
-- Con el controlador se hace llamados a las vistas u modelos, se recomienda hacer los llamados desde la carpeta raiz **aplicacion** cada que es use un import/from como ejm: 
+
+Esta carpeta contiene todos los controladores, y cada controlador debe seguir estas pautas:
+
+- El nombre del controlador debe estar en singular, seguido de un guion bajo (_) y la palabra "controller". Por ejemplo: **cargo_controller**.
+- Se recomienda utilizar como referencia el archivo **ejemplo_controller.py**.
+- Cada controlador debe tener una variable llamada "enrutador" para mantener coherencia con la estructura del proyecto.
+- Dentro de cada controlador, se utiliza (*Blueprint*)[https://flask.palletsprojects.com/es/main/blueprints/] para modularizar y dividir los casos de uso.
+- Al hacer llamados a vistas o modelos desde el controlador, se recomienda importar desde la carpeta raíz **aplicacion**, como se muestra en el siguiente ejemplo:
 ```python
 from aplicacion.modelos.cargo_modelo import Cargo
 ```
 
 ### 3.1.9 */aplicacion/configuracion*
-Se penso hacer uso de MYSQL por lo cual se penso en tener los datos de conexion dentro de esta carpeta, pero al final no se uso
+Inicialmente, se contempló el uso de MySQL, por lo que se planeó tener los datos de conexión dentro de esta carpeta. Sin embargo, al final no se utilizó.
