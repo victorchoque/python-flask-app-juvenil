@@ -81,7 +81,7 @@ flask --app servidor.py db upgrade
 - https://flask-wtf.readthedocs.io/en/1.2.x/
 - https://bulma.io/documentation/form/general/
 - https://docs.reportlab.com/reportlab/userguide/ch1_intro/
-
+- https://docs.reportlab.com/reportlab/userguide/ch7_tables/
 # 3 Estructura del proyecto
 En este apartado se describe la estructura del proyecto siguiendo el patrón MVC (Modelo-Vista-Controlador), con el objetivo de adherirse a las mejores **prácticas** y recomendaciones de diseño. 
 ## 3.1 Carpetas y archivos

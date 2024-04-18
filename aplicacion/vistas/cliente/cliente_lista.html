@@ -6,6 +6,13 @@
     <h1>Lista de clientes</h1>
     <table class="table">
         <thead>
+            {% if con_busqueda is defined %}
+            <tr>
+                <td colspan="5">
+                    {% include 'formulario_buscar.html' %}
+                </td>
+            </tr>
+            {% endif %}
             <tr>
                 <th > Id Cliente</th>
                 <th > Nit Ci</th>
@@ -18,8 +25,8 @@
             {% for cliente in clientes_lista %}
                 <tr>
                 <td>{{ cliente.id_cliente }}</td>
-                <td>{{ cliente.razon_social }}</td>
                 <td>{{ cliente.nit_ci }}</td>
+                <td>{{ cliente.razon_social }}</td>                
                 <td>
                     <a href="{{ url_for('cliente.borrar_cliente', id=cliente.id_cliente) }}" onclick="return confirm('Esta seguro de eliminar?')" class="button is-danger">Eliminar</a>
                     <a href="{{ url_for('cliente.editar_cliente', id=cliente.id_cliente) }}" class="button is-warning">Actualizar</a>
@@ -29,7 +36,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2">
+                <td colspan="4">
                     <a href="{{ url_for('cliente.agregar_cliente') }}" class="button is-primary">Agregar nuevo cliente</a>
                     | <a href="{{ url_for('cliente.pdf_listar_clientes') }}" class="button is-secondary" target="_blank">Reporte PDF</a>
                 </td>

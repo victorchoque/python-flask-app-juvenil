@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for ,send_file
 from aplicacion.formularios import CargoForm  # Importa el formulario de Flask-WTF
 from aplicacion.modelos.cargo_modelo import Cargo  # Importa la clase Cargo
-from aplicacion.controladores.comun import javascript_alert
+from aplicacion.controladores.comun import javascript_alert,generar_pdf
 
 # Define el Blueprint
 enrutador = Blueprint('cargo', __name__,url_prefix='/cargo',template_folder='../vistas')
@@ -67,5 +67,22 @@ def borrar_cargo(id):
 @enrutador.route('/lista', methods=['GET', 'POST'])
 @enrutador.route('/cargos')
 def listar_cargos():
+    if request.args.get('buscar') != None and len( request.args.get('buscar') )>0:
+        cargos = Cargo.buscar_en_lista( request.args.get('buscar') )
+    else:
+        cargos = Cargo.obtener_lista()
+    return render_template('/cargo/cargo_lista.html', cargos_lista=cargos, con_busqueda=True)
+
+@enrutador.route('/pdf_lista', methods=['GET', 'POST'])
+def pdf_listar():
     cargos = Cargo.obtener_lista()
-    return render_template('/cargo/cargo_lista.html', cargos_lista=cargos)
+    
+    datos = [['id', 'Cargo'] ]
+    # Llenamos de dato la tabla
+    for cargo in cargos:
+        datos.append([cargo.id_cargo, cargo.cargo ])
+    
+    archivo_pdf = generar_pdf("Reporte Cargos",datos)
+    
+    # Enviamos el archivo PDF como respuesta
+    return send_file(archivo_pdf.name, as_attachment=False, download_name='mi_pdf.pdf')

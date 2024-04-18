@@ -1,5 +1,5 @@
 
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, or_
 from aplicacion.modelos.definicion import BaseCrud,db
 
 class Cliente(BaseCrud,db.Model):
@@ -19,6 +19,16 @@ class Cliente(BaseCrud,db.Model):
     def obtener_lista_desactivados(cls):
         try:
             return cls.query.filter_by(estado='desactivado' ).all()
+        except Exception as e:
+            print(e)
+            return []
+    @classmethod
+    def buscar_en_lista(cls,criterio):
+        try:
+            print(f'%{criterio}%')
+            return cls.query.filter_by(estado='activado') \
+                        .filter(or_(cls.razon_social.like(f'%{criterio}%'), cls.nit_ci.like(f'%{criterio}%'))) \
+                        .all()
         except Exception as e:
             print(e)
             return []

@@ -1,11 +1,18 @@
 {% extends 'layout.html' %}
 
-{% block title %}lista de Clientes{% endblock %}
+{% block title %}Lista de Cargos{% endblock %}
 
 {% block content %}
     <h1>Lista de Cargos</h1>
     <table class="table">
         <thead>
+            {% if con_busqueda is defined %}
+            <tr>
+                <td colspan="3">
+                    {% include 'formulario_buscar.html' %}
+                </td>
+            </tr>
+            {% endif %}
             <tr>
                 <th scope="col"> Id Cargo</th>
                 <th scope="col"> Cargo</th>                
@@ -26,8 +33,9 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2">
+                <td colspan="3">
                     <a href="{{ url_for('cargo.agregar_cargo') }}" class="button is-primary">Agregar nuevo Cargo</a>
+                    | <a href="{{ url_for('cargo.pdf_listar') }}" class="button is-secondary" target="_blank">Reporte PDF</a>
                 </td>
             </tr>
         </tfoot>

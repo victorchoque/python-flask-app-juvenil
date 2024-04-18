@@ -1,3 +1,4 @@
+import logging
 # Las clases de "Blueprint" sirven para agrupar archivos python y sacar los get,post definidos en ellos
 from flask import Blueprint, render_template, abort,redirect, url_for
 from flask import Flask
@@ -17,8 +18,14 @@ servidor = Flask(__name__)
 
 servidor.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///juvenil.db'  # Usa SQLite como tu base de datos
 servidor.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 # Configura la clave secreta , para seguridad de los formularios
 servidor.config['SECRET_KEY'] = 'tu_clave_secreta_aqui'
+
+# Para ver las consultas que hace internamente sqlalchemy
+logging.basicConfig()
+logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG)
 
 db.init_app(servidor)
 migrate = Migrate(servidor, db)

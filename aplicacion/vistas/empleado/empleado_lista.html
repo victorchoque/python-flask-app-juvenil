@@ -6,6 +6,13 @@
     <h1>Lista de Empleados</h1>
     <table class="table">
         <thead>
+            {% if con_busqueda is defined %}
+            <tr>
+                <td colspan="11">
+                    {% include 'formulario_buscar.html' %}
+                </td>
+            </tr>
+            {% endif %}
             <tr>
                 <th> Id Empleado</th>
                 <th> ci</th>                
@@ -44,8 +51,9 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="2">
+                <td colspan="8">
                     <a href="{{ url_for('empleado.agregar_empleado') }}" class="button is-primary">Agregar nuevo empleado</a>
+                    | <a href="{{ url_for('empleado.pdf_listar') }}" class="button is-secondary" target="_blank">Reporte PDF</a>
                 </td>
             </tr>
         </tfoot>

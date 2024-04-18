@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for,send_file
 from aplicacion.formularios import EmpleadoForm  # Importa el formulario de Flask-WTF
 from aplicacion.modelos.cargo_modelo import Cargo  # Importa la clase Empleado y cargo para llenar el desplegable
 from aplicacion.modelos.empleado_modelo import Empleado
-from aplicacion.controladores.comun import javascript_alert
+from aplicacion.controladores.comun import javascript_alert, generar_pdf
 
 # Define el Blueprint
 enrutador = Blueprint('empleado', __name__,url_prefix='/empleado',template_folder='../vistas')
@@ -91,5 +91,35 @@ def borrar_empleado(id):
 # Ruta para listar todos los empleados
 @enrutador.route('/lista', methods=['GET', 'POST'])
 def listar_empleados():
+    if request.args.get('buscar') != None and len( request.args.get('buscar') )>0:
+        empleados = Empleado.buscar_en_lista( request.args.get('buscar') )
+    else:
+        empleados = Empleado.obtener_lista()
+    return render_template('/empleado/empleado_lista.html', empleados_lista=empleados,con_busqueda=True)
+
+@enrutador.route('/pdf_lista', methods=['GET', 'POST'])
+def pdf_listar():
     empleados = Empleado.obtener_lista()
-    return render_template('/empleado/empleado_lista.html', empleados_lista=empleados)
+    
+    datos = [['id', 'cargo','ci', 'Nombres', 'direccion','telefono','fecha nacimiento','genero','intereses'] ]
+    #ancho = [  10,   10   , 10,50       ,100         ,11        ,100               ,100     ,100       ]
+    ancho=[]
+    # Llenamos de dato la tabla
+    for empleado in empleados:
+        datos.append([
+                    empleado.id_empleado, 
+                    empleado.cargo.cargo,
+                    empleado.ci, 
+
+                    "".join( [empleado.nombre," ",empleado.paterno," ",empleado.materno])  ,
+                    empleado.direccion,
+                    empleado.telefono,                    
+                    empleado.fecha_nacimiento,
+                    empleado.genero,
+                    empleado.intereses.replace(",",", "),                    
+                    ])        
+    
+    archivo_pdf = generar_pdf("Reporte Empleados",datos,ancho)
+    
+    # Enviamos el archivo PDF como respuesta
+    return send_file(archivo_pdf.name, as_attachment=False, download_name='mi_pdf.pdf')
