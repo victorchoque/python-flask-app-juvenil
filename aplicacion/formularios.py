@@ -12,7 +12,7 @@ class GeneroField(RadioField):
     def __init__(self, *args, **kwargs):
         super(GeneroField, self).__init__(*args, **kwargs)
         self.choices = [('f', 'Femenino'), ('m', 'Masculino')]
-# Campo personalizado para generar los Checkbox
+####### INICIO Campos personalizado para generar los Checkbox
 # es necesario para que los Checkbox Se Marquen 
 @deprecated("al final no se uso por que no resulto y se opto por el parche en codigo JavaScript")
 class ChoiceObj(object):
@@ -74,8 +74,9 @@ class InteresesCheckboxField2(SelectMultipleField):
                               ('interes4', 'Interes 4'),
                               ('interes5', 'Interes 5')]
         super(InteresesCheckboxField, self).__init__(label, validators, choices=opciones_intereses, **kwargs)
+####### FIN Campos personalizado para generar los Checkbox
 
-# Los formularios que se usaran junto a sus validaciones
+# Los formularios que se usaran junto a sus validaciones deben ir Aqui
 
 class CargoForm(FlaskForm):
     cargo = StringField('Cargo', validators=[DataRequired()])

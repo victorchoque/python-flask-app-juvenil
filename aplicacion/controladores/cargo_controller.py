@@ -73,6 +73,7 @@ def listar_cargos():
         cargos = Cargo.obtener_lista()
     return render_template('/cargo/cargo_lista.html', cargos_lista=cargos, con_busqueda=True)
 
+# Ruta para generar el reporte
 @enrutador.route('/pdf_lista', methods=['GET', 'POST'])
 def pdf_listar():
     cargos = Cargo.obtener_lista()
