@@ -46,6 +46,11 @@ Implementamos la metodología KANBAN para el desarrollo de este proyecto, el cua
 cd c:\proyectos\RutaDeEstaCarpeta\
 pip install Flask Flask-SQLAlchemy Flask-Migrate Flask-WTF reportlab
 ```
+**Para instalacion OFFLINE EN WINDOWS**
+```bash
+cd c:\proyectos\RutaDeEstaCarpeta\
+pip install -r requirements.txt --find-links=c:\proyectos\RutaDeEstaCarpeta\paquetes-externos --no-index
+```
 ## [2.1](#2-1) Base de datos y ¿Migraciones? 
 En este apartado, se abstraen las tablas necesarias y se normalizan los nombres de los campos para facilitar su uso en una base de datos MySQL, PostgreSQL o SQLite. Una vez hecho esto, se procede a migrar dicha abstracción al gestor de base de datos elegido.
 ### 2.1.1 Normalizacion de la estructura  de la base de datos y las abstracciones
