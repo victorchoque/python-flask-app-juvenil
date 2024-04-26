@@ -41,7 +41,7 @@ def editar_cargo(id):
         #return redirect(url_for('cargo.ver_cargo', id=id))
         pagina_destino = url_for('cargo.listar_cargos')
         script =  javascript_alert("Un error no se pudo actualizar")
-        if cargo_modelo.actualizar() :
+        if cargo_modelo.editar() :
             script =  javascript_alert("Se actualizo el cargo",pagina_destino)     
     return render_template('/cargo/cargo_formulario.html', form=form,sub_titulo='Editar cargo' + str(cargo_modelo.cargo), cargo=cargo_modelo,script=script)
 
